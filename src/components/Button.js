@@ -1,4 +1,4 @@
-import "./App.css";
+import "../App.css";
 
 function Button(title, active, onClickHandler) {
   return (
