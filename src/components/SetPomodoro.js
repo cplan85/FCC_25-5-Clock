@@ -1,5 +1,6 @@
 import "../App.css";
 import Button from "./Button";
+import CountdownAnimation from "./CountdownAnimation";
 import React, { useState } from "react";
 
 function SetPomodoro(title, active, onClickHandler) {
@@ -10,7 +11,7 @@ function SetPomodoro(title, active, onClickHandler) {
     active: "work",
   });
 
-  const handleChange = () => {
+  const handleChange = (input) => {
     const { name, value } = input.target;
 
     switch (name) {
@@ -34,7 +35,14 @@ function SetPomodoro(title, active, onClickHandler) {
         });
         break;
     }
+    console.log(newTimer);
   };
+
+  const handleSubmit = (e) => {
+    console.log("hi!");
+    e.preventDefault();
+  };
+
   return (
     <div className="form-container">
       <form noValidate>
@@ -43,22 +51,27 @@ function SetPomodoro(title, active, onClickHandler) {
             className="input"
             name="work"
             onChange={handleChange}
-            value={1}
+            value={newTimer.work}
           />
           <input
             className="input"
             name="shortBreak"
             onChange={handleChange}
-            value={1}
+            value={newTimer.short}
           />
           <input
             className="input"
             name="longBreak"
             onChange={handleChange}
-            value={1}
+            value={newTimer.long}
           />
         </div>
-        <Button title="Set Timer" onClickHandler={handleSubmit} />
+        {/* <CountdownAnimation /> */}
+        <Button
+          title="Set Timer"
+          active={"true"}
+          onClickHandler={handleSubmit}
+        />
       </form>
     </div>
   );

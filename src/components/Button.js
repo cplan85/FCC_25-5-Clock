@@ -1,11 +1,11 @@
 import "../App.css";
 
-function Button(title, active, onClickHandler) {
+const Button = (title = "Click me!", active, onClickHandler) => {
   return (
     <button className={active} onClick={onClickHandler}>
-      {title}
+      Set Timer
     </button>
   );
-}
+};
 
 export default Button;
