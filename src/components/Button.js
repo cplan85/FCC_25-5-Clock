@@ -1,9 +1,9 @@
 import "../App.css";
 
-const Button = (title = "Click me!", active, onClickHandler) => {
+const Button = (props) => {
   return (
-    <button className={active} onClick={onClickHandler}>
-      Set Timer
+    <button className={props.className} onClick={props.onClickHandler}>
+      {props.title}
     </button>
   );
 };

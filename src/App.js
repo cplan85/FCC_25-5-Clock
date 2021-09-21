@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="App">
       <h1>25 + 5 Clock</h1>
-      <p>Be Productive the right way!</p>
+      <p>Designed and coded by Carlos Planchart</p>
 
       <SetPomodoro />
     </div>
