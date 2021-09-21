@@ -13,6 +13,27 @@
   }
 }
 
+body {
+  align-items: center;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 179, 206, 0) 0%,
+    rgba(243, 157, 178, 0) 43%,
+    rgba(98, 149, 231, 0.43) 100%
+  );
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  display: flex;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffb3ce', endColorstr='#6effb5bd', GradientType=1);
+  flex-direction: column;
+  font-family: "Open Sans", sans-serif;
+  height: 100vh;
+  justify-content: center;
+  min-width: 184px;
+  overflow-x: hidden;
+  transition: background-color 0.2s;
+}
+
 #countdown {
   display: flex;
   justify-content: center;

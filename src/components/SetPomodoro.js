@@ -1,11 +1,21 @@
 import "../App.css";
 import Button from "react-bootstrap/Button";
-import CountdownAnimation from "./CountdownAnimation";
+import Timer from "./CountdownAnimation";
 import React, { useState } from "react";
+import { TiArrowSortedUp } from "react-icons/ti";
+
+import { TiArrowSortedDown } from "react-icons/ti";
+import { TiMediaPlay } from "react-icons/ti";
+
+import { TiMediaPause } from "react-icons/ti";
+
+import { GrPowerReset } from "react-icons/gr";
 
 function SetPomodoro(title, active, onClickHandler) {
-  const [time, setNewTime] = useState(0.1 * 60);
-  const [breakTime, setBreak] = useState(5 * 60);
+  const startingTime = 25;
+  const startingBreak = 5;
+  const [time, setNewTime] = useState(startingTime * 60);
+  const [breakTime, setBreak] = useState(startingBreak * 60);
   const [timeKey, setNewKey] = useState(0);
 
   const [sessionType, setSessionType] = useState("SESSION");
@@ -15,22 +25,6 @@ function SetPomodoro(title, active, onClickHandler) {
   const handleSubmit = (e) => {
     console.log("hi!");
     e.preventDefault();
-  };
-
-  const renderTime = (remainingTime) => {
-    var timerhours = Math.floor(remainingTime / 3600);
-    var timerminutes = -timerhours * 60 + Math.floor(remainingTime / 60);
-    var timerseconds = -timerminutes * 60 - timerhours * 3600 + remainingTime;
-    if (remainingTime === 0) {
-      timerminutes = 0;
-      timerseconds = 0;
-    }
-    return (
-      <div className="timer">
-        <div className="minutesvalue">{timerminutes} Min</div>
-        <div className="secondsvalue">{timerseconds} Sec</div>
-      </div>
-    );
   };
 
   const addToSession = () => {
@@ -51,13 +45,16 @@ function SetPomodoro(title, active, onClickHandler) {
     setNewTime(time - 60);
   };
 
-  const pause = () => {
+  const pausePlay = () => {
     setisPlaying(!isPlaying);
   };
 
   const reset = () => {
     setNewKey(timeKey + 1);
-    setNewTime(0.1 * 60);
+    setisPlaying(false);
+    setNewTime(startingTime * 60);
+    setBreak(startingBreak * 60);
+
     setSessionType("SESSION");
   };
 
@@ -76,30 +73,38 @@ function SetPomodoro(title, active, onClickHandler) {
       <form noValidate>
         <div className="input-wrapper">
           <h2 id="session-label">Session Length</h2>
-          <Button variant="primary" size="lg" onClick={addToSession}>
-            ADD
-          </Button>
+          <TiArrowSortedUp
+            id="session-increment"
+            size={25}
+            onClick={addToSession}
+          />
+          <p id="session-length">{time / 60}</p>
+          {/* {renderTime(time)} */}
 
-          {renderTime(time)}
-
-          <Button variant="primary" size="lg" onClick={subtractFromSession}>
-            SUBTRACT
-          </Button>
+          <TiArrowSortedDown
+            id="session-decrement"
+            size={22}
+            onClick={subtractFromSession}
+          />
 
           <h2 id="break-label">Break Length</h2>
 
-          <Button variant="primary" size="lg" onClick={addToBreak}>
-            ADD
-          </Button>
-          {renderTime(breakTime)}
+          <TiArrowSortedUp
+            id="break-increment"
+            size={25}
+            onClick={addToBreak}
+          />
+          <p id="break-length">{breakTime / 60}</p>
 
-          <Button variant="primary" size="lg" onClick={subtractFromBreak}>
-            SUBTRACT
-          </Button>
+          <TiArrowSortedDown
+            id="break-decrement"
+            size={22}
+            onClick={subtractFromBreak}
+          />
         </div>
 
         <div id="countdown">
-          <CountdownAnimation
+          <Timer
             sessionType={sessionType}
             time={time}
             timeKey={timeKey}
@@ -118,12 +123,13 @@ function SetPomodoro(title, active, onClickHandler) {
             src="https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav"
           />
         </div>
-        <Button variant="primary" size="lg" onClick={pause}>
-          PLAY/PAUSE
-        </Button>
-        <Button variant="primary" size="lg" onClick={reset}>
-          Reset
-        </Button>
+        {isPlaying ? (
+          <TiMediaPause id="start_stop" size={40} onClick={pausePlay} />
+        ) : (
+          <TiMediaPlay id="start_stop" size={40} onClick={pausePlay} />
+        )}
+
+        <GrPowerReset id="reset" size={40} onClick={reset} />
       </form>
     </div>
   );

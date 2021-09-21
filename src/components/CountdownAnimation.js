@@ -19,10 +19,12 @@ const CountdownAnimation = (props) => {
       );
     }
     return (
-      <div className="timer">
-        <div>{props.sessionType}</div>
-        <div className="minutesvalue">{timerminutes} Min</div>
-        <div className="secondsvalue">{timerseconds} Sec</div>
+      <div id="Timer">
+        <div id="timer-label">{props.sessionType}</div>
+        <div id="time-left">
+          {timerminutes < 9 ? `${0}${timerminutes}` : timerminutes}:
+          {timerseconds < 9 ? `${0}${timerseconds}` : timerseconds}
+        </div>
       </div>
     );
   };
