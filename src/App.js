@@ -1,5 +1,5 @@
 import "./App.css";
-import SetPomodoro from "./components/SetPomodoro";
+import Timer from "./components/Timer";
 //import CountdownAnimation from "./components/CountdownAnimation";
 function App() {
   return (
@@ -7,7 +7,7 @@ function App() {
       <h1>25 + 5 Clock</h1>
       <p>Designed and coded by Carlos Planchart</p>
 
-      <SetPomodoro />
+      <Timer />
     </div>
   );
 }
