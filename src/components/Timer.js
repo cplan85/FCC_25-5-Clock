@@ -10,50 +10,71 @@ import { TiMediaPause } from "react-icons/ti";
 
 import { GrPowerReset } from "react-icons/gr";
 
-function Timer(title, active, onClickHandler) {
+function Timer() {
   const startingTime = 25;
   const startingBreak = 5;
   const sessionText = "SESSION";
 
+  const [timeSeconds, setTimeSeconds] = useState(startingTime * 60);
+
   const [timer, setNewTimer] = useState({
-    time: startingTime,
+    sessionTime: startingTime,
     breakTime: startingBreak,
     timeKey: 0,
     sessionType: sessionText,
     remainingTime: startingTime * 60,
   });
 
-  console.log("MY MINUTE", timer.time);
-
   const [remainingTime, setRemainingTime] = useState(1023);
 
   const [isPlaying, setisPlaying] = useState(false);
+  // NEW FUNCTIONS
+  const reduceTime = () => {
+    if (isPlaying && timeSeconds > 0) {
+      setTimeSeconds(timeSeconds - 1);
+    }
+    if (isPlaying && timeSeconds === 0) {
+      setTimeSeconds(timer.breakTime * 60);
+      setTimeSeconds(timeSeconds - 1);
+    }
+  };
 
-  const addToSession = (e) => {
-    e.preventDefault();
-    if (timer.time < 60 && !isPlaying) {
+  const clockify = (remainingTime) => {
+    let minutes = Math.floor(remainingTime / 60);
+    let seconds = remainingTime - minutes * 60;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    return minutes + ":" + seconds;
+  };
+
+  setTimeout(reduceTime, 1000);
+
+  console.log(`time in seconds`, timeSeconds);
+  // NEW FUNCTIONS
+  const addToSession = () => {
+    if (timer.sessionTime < 60 && !isPlaying) {
       setNewTimer({
         ...timer,
         timeKey:
           timer.sessionType === sessionText ? timer.timeKey + 1 : timer.timeKey,
-        time: timer.time + 1,
+        sessionTime: timer.sessionTime + 1,
       });
+      setRemainingTime((timer.sessionTime + 1) * 60);
       //look to delete
     }
   };
 
-  useEffect(() => {
-    if (!isPlaying) {
-      setNewTimer({
-        ...timer,
-        sessionType: sessionText,
-        time: timer.time,
-      });
-    }
-  }, [timer.time]);
+  // useEffect(() => {
+  //   if (!isPlaying) {
+  //     setNewTimer({
+  //       ...timer,
+  //       sessionType: sessionText,
+  //       sessionTime: timer.sessionTime,
+  //     });
+  //   }
+  // }, [timer.sessionTime]);
 
-  const addToBreak = (e) => {
-    e.preventDefault();
+  const addToBreak = () => {
     if (timer.breakTime < 60 && !isPlaying) {
       setNewTimer({
         ...timer,
@@ -63,12 +84,10 @@ function Timer(title, active, onClickHandler) {
             ? timer.timeKey + 1
             : timer.timeKey,
       });
-      // console.log("timer from addToBreak", timer);
     }
   };
 
-  const subtractFromBreak = (e) => {
-    e.preventDefault();
+  const subtractFromBreak = () => {
     if (timer.breakTime > 1 && !isPlaying) {
       setNewTimer({
         ...timer,
@@ -81,35 +100,28 @@ function Timer(title, active, onClickHandler) {
     }
   };
 
-  const changeRemainingTime = (data) => {
-    setRemainingTime(data);
-    console.log("look at my data", data);
-  };
-
-  const subtractFromSession = (e) => {
-    e.preventDefault();
-    if (timer.time > 1 && !isPlaying) {
+  const subtractFromSession = () => {
+    if (timer.sessionTime > 1 && !isPlaying) {
       setNewTimer({
         ...timer,
         timeKey:
           timer.sessionType === sessionText ? timer.timeKey + 1 : timer.timeKey,
-        time: timer.time - 1,
+        sessionTime: timer.sessionTime - 1,
       });
+      setRemainingTime((timer.sessionTime - 1) * 60);
     }
   };
 
-  const pausePlay = (e) => {
-    e.preventDefault();
+  const pausePlay = () => {
     setisPlaying(!isPlaying);
   };
 
-  const reset = (e) => {
-    e.preventDefault();
+  const reset = () => {
     setisPlaying(false);
     setNewTimer({
       ...timer,
       timeKey: timer.timeKey + 1,
-      time: startingTime,
+      sessionTime: startingTime,
       breakTime: startingBreak,
       sessionType: sessionText,
     });
@@ -120,10 +132,10 @@ function Timer(title, active, onClickHandler) {
   };
 
   const onCompleteHandler = () => {
-    const audio = document.getElementById("beep");
-    audio.play();
-
     if (timer.sessionType == sessionText) {
+      const audio = document.getElementById("beep");
+      audio.play();
+
       setNewTimer({
         ...timer,
         timeKey: timer.timeKey + 1,
@@ -131,10 +143,12 @@ function Timer(title, active, onClickHandler) {
         sessionType: "BREAK TIME",
       });
     } else {
+      const audio = document.getElementById("beep");
+      audio.play();
       setNewTimer({
         ...timer,
         timeKey: timer.timeKey + 1,
-        time: timer.time,
+        sessionTime: timer.sessionTime,
         sessionType: sessionText,
       });
     }
@@ -142,59 +156,58 @@ function Timer(title, active, onClickHandler) {
 
   return (
     <div className="form-container">
-      <form noValidate>
-        <div className="input-wrapper">
-          <h2 id="session-label">Session Length</h2>
-          <button id="session-increment" onClick={addToSession}>
-            <TiArrowSortedUp size={25} onClick={addToSession} />
-          </button>
-          <p id="session-length">{timer.time}</p>
-          {/* {renderTime(time)} */}
-          <button id="session-decrement" onClick={subtractFromSession}>
-            <TiArrowSortedDown size={22} />
-          </button>
-          <h2 id="break-label">Break Length</h2>
-          <button id="break-increment" onClick={addToBreak}>
-            <TiArrowSortedUp size={25} />
-          </button>
-          <p id="break-length">{timer.breakTime}</p>
-          <button id="break-decrement" onClick={subtractFromBreak}>
-            <TiArrowSortedDown size={22} />
-          </button>
-        </div>
+      <div className="input-wrapper">
+        <h2 id="session-label">Session Length</h2>
+        <button id="session-increment" onClick={addToSession}>
+          <TiArrowSortedUp size={25} />
+        </button>
+        <p id="session-length">{timer.sessionTime}</p>
+        {/* {renderTime(time)} */}
+        <button id="session-decrement" onClick={subtractFromSession}>
+          <TiArrowSortedDown size={22} />
+        </button>
+        <h2 id="break-label">Break Length</h2>
+        <button id="break-increment" onClick={addToBreak}>
+          <TiArrowSortedUp size={25} />
+        </button>
+        <p id="break-length">{timer.breakTime}</p>
+        <button id="break-decrement" onClick={subtractFromBreak}>
+          <TiArrowSortedDown size={22} />
+        </button>
+      </div>
 
-        <div id="countdown">
-          <CountdownAnimation
-            changeRemainingTime={changeRemainingTime}
-            remainingTime={timer.remainingTime}
-            sessionType={timer.sessionType}
-            time={
-              timer.sessionType === sessionText
-                ? timer.time * 60
-                : timer.breakTime * 60
-            }
-            timeKey={timer.timeKey}
-            isPlaying={isPlaying}
-            breakTime={timer.breakTime * 60}
-            onCompleteHandler={onCompleteHandler}
-            onComplete={() => {
-              // do your stuff here
-              return [true, 1500]; // repeat animation in 1.5 seconds
-            }}
-          />
-          <audio
-            id="beep"
-            preload="auto"
-            src="https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav"
-          />
-        </div>
-        <button id="start_stop" onClick={pausePlay}>
-          {isPlaying ? <TiMediaPause size={40} /> : <TiMediaPlay size={40} />}
-        </button>
-        <button id="reset" onClick={reset}>
-          <GrPowerReset size={40} />
-        </button>
-      </form>
+      <div id="countdown">
+        <CountdownAnimation
+          //changeRemainingTime={changeRemainingTime}
+          remainingTime={timer.remainingTime}
+          sessionType={timer.sessionType}
+          time={
+            timer.sessionType === sessionText
+              ? timer.sessionTime * 60
+              : timer.breakTime * 60
+          }
+          timeKey={timer.timeKey}
+          isPlaying={isPlaying}
+          breakTime={timer.breakTime * 60}
+          onCompleteHandler={onCompleteHandler}
+          onComplete={() => {
+            // do your stuff here
+            return [true, 1500]; // repeat animation in 1.5 seconds
+          }}
+        />
+        <audio
+          id="beep"
+          preload="auto"
+          src="https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav"
+        />
+      </div>
+      <button id="start_stop" onClick={pausePlay}>
+        {isPlaying ? <TiMediaPause size={40} /> : <TiMediaPlay size={40} />}
+      </button>
+      <button id="reset" onClick={reset}>
+        <GrPowerReset size={40} />
+      </button>
+      <h2>{clockify(timeSeconds)}</h2>
     </div>
   );
 }

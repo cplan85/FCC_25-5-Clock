@@ -2,8 +2,6 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 const CountdownAnimation = (props) => {
   const clockify = (remainingTime) => {
-    props.changeRemainingTime(remainingTime);
-
     let minutes = Math.floor(remainingTime / 60);
     let seconds = remainingTime - minutes * 60;
     seconds = seconds < 10 ? "0" + seconds : seconds;
@@ -12,7 +10,7 @@ const CountdownAnimation = (props) => {
   };
 
   const renderTime = ({ remainingTime }) => {
-    console.log("my remainder", remainingTime);
+    //console.log("my remainder", remainingTime);
     var timerhours = Math.floor(remainingTime / 3600);
     var timerminutes = -timerhours * 60 + Math.floor(remainingTime / 60);
     var timerseconds = -timerminutes * 60 - timerhours * 3600 + remainingTime;
