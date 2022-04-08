@@ -10,22 +10,22 @@ import { TiMediaPause } from "react-icons/ti";
 
 import { GrPowerReset } from "react-icons/gr";
 
-function Timer(props) {
-  const { breakLength, subtractFromBreak, addToBreak } = props;
+function Session(props) {
+  const { sessionLength, subtractFromSession, addToSession } = props;
 
-  const breakLengthInMinutes = moment.duration(breakLength, "s").minutes();
+  const sessionLengthInMinutes = moment.duration(sessionLength, "s").minutes();
   return (
     <div className="form-container">
-      <p id="break-label">Break</p>
-      <p id="break-length">{breakLengthInMinutes}</p>
-      <button id="break-decrement" onClick={subtractFromBreak}>
+      <p id="session-label">Session</p>
+      <p id="session-length">{sessionLengthInMinutes}</p>
+      <button id="session-decrement" onClick={subtractFromSession}>
         -
       </button>
-      <button id="break-increment" onClick={addToBreak}>
+      <button id="session-increment" onClick={addToSession}>
         +
       </button>
     </div>
   );
 }
 
-export default Timer;
+export default Session;
