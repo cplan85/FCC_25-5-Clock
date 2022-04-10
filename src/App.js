@@ -5,6 +5,8 @@ import TimeLeft from "./components/TimeLeft";
 import Session from "./components/Session";
 import { GrPowerReset } from "react-icons/gr";
 import CountdownAnimation from "./components/CountdownAnimation";
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import moment from "moment";
 function App() {
   const [sessionLength, setSessionLength] = useState(60 * 25);
 
@@ -154,10 +156,23 @@ function App() {
         src="https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav"
       />
 
+      {/* <CountdownCircleTimer
+        // isPlaying
+        duration={timeLeft}
+        initialRemainingTime={timeLeft}
+        colors={[
+          ["#004777", 0.33],
+          ["#F7B801", 0.33],
+          ["#A30000", 0.33],
+        ]}
+      >
+        {({ timeLeft }) => timeLeft}
+      </CountdownCircleTimer> */}
+
       {/* <CountdownAnimation
         //changeRemainingTime={changeRemainingTime}
         remainingTime={timeLeft}
-        sessionType={currentSessionType}
+        // sessionType={currentSessionType}
         breakLength={breakLength}
         time={
           timeLeft

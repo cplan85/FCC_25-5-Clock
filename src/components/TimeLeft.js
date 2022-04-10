@@ -14,14 +14,12 @@ function TimeLeft(props) {
     .format("mm:ss", { trim: false });
   return (
     <div className="form-container">
-      <h2>TimeLEFT</h2>
       <p id="timer-label">{currentSessionType}</p>
       <p id="time-left">{formattedTimeLeft}</p>
 
       <button id="start_stop" onClick={handleStartStopClick}>
         {isStarted ? "Stop" : "Start"}
       </button>
-      <h2>End TimeLEFT</h2>
     </div>
   );
   //mm:ss

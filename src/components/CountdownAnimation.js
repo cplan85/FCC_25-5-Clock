@@ -2,7 +2,6 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import moment from "moment";
 
 const CountdownAnimation = (props) => {
-  console.log("props from CountdownAnimation", props);
   const clockify = (remainingTime) => {
     let minutes = Math.floor(remainingTime / 60);
     let seconds = remainingTime - minutes * 60;
@@ -17,9 +16,9 @@ const CountdownAnimation = (props) => {
       .asMinutes();
     return (
       <div>
-        <div id="timer-label"> {props.sessionType}</div>
+        {/* <div id="timer-label"> {props.sessionType}</div> */}
         <div>
-          <h1 id="time-left">
+          <h1>
             {clockify(remainingTimeInMinutes * 60)}
             {/* {`${
               timerhours === 1
@@ -36,8 +35,8 @@ const CountdownAnimation = (props) => {
 
   return (
     <div>
-      <CountdownCircleTimer
-        sessionType={props.sessionType}
+      {/* <CountdownCircleTimer
+        // sessionType={props.sessionType}
         isPlaying={props.isPlaying}
         key={props.timeKey}
         duration={props.time}
@@ -47,13 +46,13 @@ const CountdownAnimation = (props) => {
           ["#F7B801", 0.33],
           ["#A30000", 0.33],
         ]}
-        onComplete={
-          props.onCompleteHandler
-          //return [false, 1500]; // repeat animation in 1.5 seconds
-        }
+        // onComplete={
+        //   props.onCompleteHandler
+        //   //return [false, 1500]; // repeat animation in 1.5 seconds
+        // }
       >
         {renderTime}
-      </CountdownCircleTimer>
+      </CountdownCircleTimer> */}
     </div>
   );
 };
