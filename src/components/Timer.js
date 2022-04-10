@@ -13,7 +13,7 @@ import { GrPowerReset } from "react-icons/gr";
 function Timer(props) {
   const { breakLength, subtractFromBreak, addToBreak } = props;
 
-  const breakLengthInMinutes = moment.duration(breakLength, "s").minutes();
+  const breakLengthInMinutes = moment.duration(breakLength, "s").asMinutes();
   return (
     <div className="form-container">
       <p id="break-label">Break</p>

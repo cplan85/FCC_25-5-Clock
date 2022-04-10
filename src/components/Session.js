@@ -13,7 +13,9 @@ import { GrPowerReset } from "react-icons/gr";
 function Session(props) {
   const { sessionLength, subtractFromSession, addToSession } = props;
 
-  const sessionLengthInMinutes = moment.duration(sessionLength, "s").minutes();
+  const sessionLengthInMinutes = moment
+    .duration(sessionLength, "s")
+    .asMinutes();
   return (
     <div className="form-container">
       <p id="session-label">Session</p>
