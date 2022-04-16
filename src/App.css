@@ -39,6 +39,22 @@ body {
   justify-content: center;
 }
 
+ .row{
+  display:flex;
+  flex-direction:row;
+  justify-content:space-between;
+  height:45px;
+}
+
+.main-clock{
+  border:rgb(255, 255, 255);
+  border-style: solid;
+  border-radius:100%;
+  padding:60px;
+  margin: 20px 0;
+  background-color:aquamarine;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -48,6 +64,20 @@ body {
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+button {
+  margin:10px 5px 0 5px;
+  padding-top:.5em;
+  background:rgb(255, 201, 249);
+  border-radius:.5em;
+  outline:none;
+  border: 1px solid transparent;
+}
+
+button:hover {
+  background-color: rgb(203, 203, 203);
+  border-radius: .5em;
 }
 
 .App-link {

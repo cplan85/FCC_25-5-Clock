@@ -15,13 +15,15 @@ function Timer(props) {
   return (
     <div className="form-container">
       <p id="break-label">Break</p>
-      <p id="break-length">{breakLengthInMinutes}</p>
-      <button id="break-decrement" onClick={subtractFromBreak}>
-        <TiArrowSortedDown size={20} />
-      </button>
-      <button id="break-increment" onClick={addToBreak}>
-        <TiArrowSortedUp size={20} />
-      </button>
+      <div className="row">
+        <button id="break-increment" onClick={addToBreak}>
+          <TiArrowSortedUp size={20} />
+        </button>
+        <p id="break-length">{breakLengthInMinutes}</p>
+        <button id="break-decrement" onClick={subtractFromBreak}>
+          <TiArrowSortedDown size={20} />
+        </button>
+      </div>
     </div>
   );
 }

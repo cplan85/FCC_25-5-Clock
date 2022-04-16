@@ -4,9 +4,7 @@ import Timer from "./components/Timer";
 import TimeLeft from "./components/TimeLeft";
 import Session from "./components/Session";
 import { GrPowerReset } from "react-icons/gr";
-import CountdownAnimation from "./components/CountdownAnimation";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import moment from "moment";
 function App() {
   const [sessionLength, setSessionLength] = useState(60 * 25);
 
@@ -92,25 +90,6 @@ function App() {
 
   console.log(timeLeft);
   console.log("Current Session Type", currentSessionType);
-  // if (timeLeft === 0 && currentSessionType == "Break") {
-  //   setCurrentSessionType("Session");
-  // } else if (timeLeft === 0 && currentSessionType == "Session") {
-  //   setCurrentSessionType("Break");
-  // }
-
-  //console.log("My session", isSession);
-  //THIS IS WHERE I CAN FOCUS MY NEXT EFFORTS
-  // if (currentSessionType == "Break" && timeLeft == 0) {
-  //   const audio = document.getElementById("beep");
-  //   audio.play();
-  //   //setTimeLeft(timeLeft - 1);
-  //   setNewSessionType("Session");
-  //   console.log("ahoerhae");
-  // } else if (timeLeft === 0 && currentSessionType == "Session") {
-  //   //setTimeLeft(timeLeft - 1);
-  //   setNewSessionType("Session");
-  //   console.log("ahoerhae23342");
-  // }
 
   const subtractFromBreak = () => {
     const newBreakLength = breakLength - 60;
@@ -124,6 +103,7 @@ function App() {
       ? setBreakLength(newBreakLength)
       : setBreakLength(breakLength);
   };
+
   return (
     <div className="App">
       <h1>25 + 5 Clock</h1>
@@ -136,59 +116,29 @@ function App() {
         timeLeft={timeLeft}
         handleStartStopClick={handleStartStopClick}
         isStarted={isStarted}
+        reset={reset}
       />
-      <Timer
-        breakLength={breakLength}
-        subtractFromBreak={subtractFromBreak}
-        addToBreak={addToBreak}
-      />
-      <Session
-        sessionLength={sessionLength}
-        subtractFromSession={subtractFromSession}
-        addToSession={addToSession}
-      />
-      <button id="reset" onClick={reset}>
-        <GrPowerReset size={40} />
-      </button>
+      {/* <button id="reset" onClick={reset}>
+        <GrPowerReset size={30} />
+      </button> */}
+      <div className="row">
+        <Session
+          sessionLength={sessionLength}
+          subtractFromSession={subtractFromSession}
+          addToSession={addToSession}
+        />
+        <Timer
+          breakLength={breakLength}
+          subtractFromBreak={subtractFromBreak}
+          addToBreak={addToBreak}
+        />
+      </div>
+
       <audio
         id="beep"
         preload="auto"
         src="https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav"
       />
-
-      {/* <CountdownCircleTimer
-        // isPlaying
-        duration={timeLeft}
-        initialRemainingTime={timeLeft}
-        colors={[
-          ["#004777", 0.33],
-          ["#F7B801", 0.33],
-          ["#A30000", 0.33],
-        ]}
-      >
-        {({ timeLeft }) => timeLeft}
-      </CountdownCircleTimer> */}
-
-      {/* <CountdownAnimation
-        //changeRemainingTime={changeRemainingTime}
-        remainingTime={timeLeft}
-        // sessionType={currentSessionType}
-        breakLength={breakLength}
-        time={
-          timeLeft
-          // currentSessionType === "Session"
-          //   ? sessionLength * 60
-          //   : breakLength * 60
-        }
-        timeKey={0}
-        isPlaying={isStarted}
-        breakTime={breakLength * 60}
-        //onCompleteHandler={onCompleteHandler}
-        onComplete={() => {
-          // do your stuff here
-          return [true, 1500]; // repeat animation in 1.5 seconds
-        }}
-      /> */}
 
       <h3>{newSessionType}</h3>
     </div>

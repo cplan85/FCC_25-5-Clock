@@ -14,13 +14,15 @@ function Session(props) {
   return (
     <div className="form-container">
       <p id="session-label">Session</p>
-      <p id="session-length">{sessionLengthInMinutes}</p>
-      <button id="session-decrement" onClick={subtractFromSession}>
-        <TiArrowSortedDown size={20} />
-      </button>
-      <button id="session-increment" onClick={addToSession}>
-        <TiArrowSortedUp size={20} />
-      </button>
+      <div className="row">
+        <button id="session-increment" onClick={addToSession}>
+          <TiArrowSortedUp size={20} />
+        </button>
+        <p id="session-length">{sessionLengthInMinutes}</p>
+        <button id="session-decrement" onClick={subtractFromSession}>
+          <TiArrowSortedDown size={20} />
+        </button>
+      </div>
     </div>
   );
 }
