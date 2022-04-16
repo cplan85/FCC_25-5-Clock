@@ -1,6 +1,9 @@
 import "../App.css";
 import moment from "moment";
 import momentDurationFormatSetup from "moment-duration-format";
+import { TiMediaPlay } from "react-icons/ti";
+
+import { TiMediaPause } from "react-icons/ti";
 
 function TimeLeft(props) {
   momentDurationFormatSetup(moment);
@@ -18,7 +21,7 @@ function TimeLeft(props) {
       <p id="time-left">{formattedTimeLeft}</p>
 
       <button id="start_stop" onClick={handleStartStopClick}>
-        {isStarted ? "Stop" : "Start"}
+        {isStarted ? <TiMediaPause size={30} /> : <TiMediaPlay size={30} />}
       </button>
     </div>
   );

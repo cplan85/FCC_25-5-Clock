@@ -8,8 +8,6 @@ import { TiMediaPlay } from "react-icons/ti";
 
 import { TiMediaPause } from "react-icons/ti";
 
-import { GrPowerReset } from "react-icons/gr";
-
 function Timer(props) {
   const { breakLength, subtractFromBreak, addToBreak } = props;
 
@@ -19,10 +17,10 @@ function Timer(props) {
       <p id="break-label">Break</p>
       <p id="break-length">{breakLengthInMinutes}</p>
       <button id="break-decrement" onClick={subtractFromBreak}>
-        -
+        <TiArrowSortedDown size={20} />
       </button>
       <button id="break-increment" onClick={addToBreak}>
-        +
+        <TiArrowSortedUp size={20} />
       </button>
     </div>
   );
